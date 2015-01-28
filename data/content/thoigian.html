@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phần mềm dạy học</title>
+<link rel="stylesheet" href="css/metro-bootstrap.css">
+<script src="js/jquery/jquery.min.js"></script>
+<script src="js/jquery/jquery.widget.min.js"></script>
+<script src="js/metro.min.js"></script>
+<script src="js/bignumber.js"></script>
+<style>
+html,body{background-color:#ffffff;}
+</style>
+</head>
+<body class="metro">
+            <div class="grid fluid">
+                <div class="row">
+                     <a href="index.html" class="span1 bg-red padding5 text-center">
+                        <span class="fg-white">Trở về trước</span>
+                    </a>
+                </div>
+				<div class="row">
+				Bạn muốn đổi
+				<div class="input-control text size2">
+				    <input type="text" value="" id="giatri"/>
+				</div>
+				<div class="input-control select size2">
+				    <select id="dailuong">
+				        <option value="1">Thế kỷ</option>
+				        <option value="2">Thập kỷ</option>
+				        <option value="3">Năm</option>
+						<option value="4">Quý</option>
+						<option value="5">Tháng</option>
+						<option value="6">Tuần</option>
+						<option value="7">Ngày</option>
+						<option value="8">Giờ</option>
+						<option value="9">Phút</option>
+						<option value="10">Giây</option>
+				    </select>
+				</div>
+				<input type="button" value="Chuyển đổi" id="chuyendoi">
+				</div>
+				
+				<div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="text-left">Đơn vị</th>
+                        <th class="text-left">Giá trị</th>
+                        <th class="text-left">Đơn vị</th>
+                        <th class="text-left">Giá trị</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr class="error"><td>Thế kỷ</td><td class="right"><span id="val1"></span></td><td>Tuần</td><td class="right"><span id="val6"></span></td></tr>
+                    <tr class="success"><td>Thập kỷ</td><td class="right"><span id="val2"></span></td><td>Ngày</td><td class="right"><span id="val7"></span></td></tr>
+                    <tr class="warning"><td>Năm</td><td class="right"><span id="val3"></span></td><td>Giờ</td><td class="right"><span id="val8"></span></td></tr>
+                    <tr class="info"><td>Quý</td><td class="right"><span id="val4"></span></td><td>Phút</td><td class="right"><span id="val9"></span></td></tr>
+                    <tr><td>Tháng</td><td class="right"><span id="val5"></span></td><td>Giây</td><td class="right"><span id="val10"></span></td></tr>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+			</div>
+            </div>
+			
+			<script type="text/javascript">
+				$("#chuyendoi").click(function(){
+					var giatri = $("#giatri").val();
+					var dailuong = $("#dailuong").val();
+					
+					var gt = new BigNumber(giatri);
+					var dl = new BigNumber(dailuong);
+					var ten = new BigNumber("10");
+					
+					
+					
+					var theky = 0,thapky = 0,nam =0, quy=0,thang=0,tuan=0,ngay=0,gio=0,phut=0,giay=0;
+					var block=0;
+					if(dailuong == '1'){
+						theky = gt;
+						thapky = theky.multiply(10);
+						nam = thapky.multiply(10);
+						quy = nam.multiply(4);
+						thang= quy.multiply(3);
+						block = 0;
+					}
+					if(dailuong == '2'){
+						thapky = gt;
+						theky = thapky.divide(10);
+						
+						nam = thapky.multiply(10);
+						quy = nam.multiply(4);
+						thang= quy.multiply(3);
+						block = 0;
+					}
+					if(dailuong == '3'){
+						nam = gt;
+						thapky = nam.divide(10);
+						theky = thapky.divide(10);
+						
+						
+						quy = nam.multiply(4);
+						thang= quy.multiply(3);
+						block = 0;
+					}
+					if(dailuong == '4'){
+						quy = gt;
+						nam = quy.divide(4);
+						thapky = nam.divide(10);
+						theky = thapky.divide(10);
+						
+						thang= quy.multiply(3);
+						block = 0;
+					}
+					if(dailuong == '5'){
+						thang= gt;
+						quy = thang.divide(3);
+						nam = quy.divide(4);
+						thapky = nam.divide(10);
+						theky = thapky.divide(10);
+						block = 0;
+					}
+					
+					
+					if(dailuong == '6'){
+						tuan = gt;
+						ngay = tuan.multiply(7);
+						gio = ngay.multiply(24);
+						phut = gio.multiply(60);
+						giay= phut.multiply(60);
+						block = 1;
+					}
+					if(dailuong == '7'){
+						ngay = gt;
+						tuan = ngay.divide(7);
+						gio = ngay.multiply(24);
+						phut = gio.multiply(60);
+						giay= phut.multiply(60);
+						block = 1;
+					}
+					if(dailuong == '8'){
+						gio =gt;
+						ngay = gio.divide(24);
+						tuan = ngay.divide(7);
+						phut = gio.multiply(60);
+						giay= phut.multiply(60);
+						block = 1;
+					}
+					if(dailuong == '9'){
+						phut = gt;
+						gio = phut.divide(60);
+						ngay = gio.divide(24);
+						tuan = ngay.divide(7);
+						giay= phut.multiply(60);
+						block = 1;
+					}
+					
+					if(dailuong == '10'){
+						giay = gt;
+						phut = giay.divide(60);
+						gio = phut.divide(60);
+						ngay = gio.divide(24);
+						tuan = ngay.divide(7);
+						block = 1;
+					}
+					
+					
+					if (block == 0) {
+						$("#val1").html(theky + "");
+						$("#val2").html(thapky + "");
+						$("#val3").html(nam+ "");
+						$("#val4").html(quy + "");
+						$("#val5").html(thang + "");
+						$("#val6").html("");
+						$("#val7").html("");
+						$("#val8").html("");
+						$("#val9").html("");
+						$("#val10").html("");
+					} else {
+						
+						
+					
+					$("#val1").html("");
+					$("#val2").html( "");
+					$("#val3").html( "");
+					$("#val4").html( "");
+					$("#val5").html("");
+					
+					$("#val6").html(tuan + "");
+					$("#val7").html(ngay+ "");
+					$("#val8").html(gio+ "");
+					$("#val9").html(phut+ "");
+					$("#val10").html(giay+ "");
+				}
+					
+				});
+			</script>
+</body>
+</html>                               		

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phần mềm dạy học</title>
+<link rel="stylesheet" href="css/metro-bootstrap.css">
+<script src="js/jquery/jquery.min.js"></script>
+<script src="js/jquery/jquery.widget.min.js"></script>
+<script src="js/metro.min.js"></script>
+<script src="js/bignumber.js"></script>
+<style>
+html,body{background-color:#ffffff;}
+</style>
+</head>
+<body class="metro">
+            <div class="grid fluid">
+                <div class="row">
+                     <a href="index.html" class="span1 bg-red padding5 text-center">
+                        <span class="fg-white">Trở về trước</span>
+                    </a>
+                </div>
+				<div class="row">
+				Bạn muốn đổi
+				<div class="input-control text size2">
+				    <input type="text" value="0" id="giatri"/>
+				</div>
+				<div class="input-control select size2">
+				    <select id="dailuong">
+				        <option value="1">mét khối</option>
+				        <option value="2">đề-xi-mét khối</option>
+				        <option value="3">cen-ti-mét khối</option>
+				    </select>
+				</div>
+				
+				<div class="input-control text size2">
+				    <input type="text" value="0" id="giatri2"/>
+				</div>
+				<div class="input-control select size2">
+				    <select id="dailuong2">
+				        <option value="1">mét khối</option>
+				        <option value="2">đề-xi-mét khối</option>
+				        <option value="3">cen-ti-mét khối</option>
+				    </select>
+				</div>
+				<input type="button" value="Chuyển đổi" id="chuyendoi">
+				</div>
+				
+				<div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="text-left">Đơn vị</th>
+                        <th class="text-left">Giá trị</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr class="error"><td>m<sup>3</sup></td><td class="right"><span id="val1"></span></td></tr>
+                    <tr class="success"><td>dm<sup>3</sup></td><td class="right"><span id="val2"></span></td></tr>
+                    <tr class="warning"><td>cm<sup>3</sup></td><td class="right"><span id="val3"></span></td></tr>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+			</div>
+            </div>
+			
+			<script type="text/javascript">
+				$("#chuyendoi").click(function(){
+					var giatri = $("#giatri").val();
+					var dailuong = $("#dailuong").val();
+					
+					var giatri2 = $("#giatri2").val();
+					var dailuong2 = $("#dailuong2").val();
+					
+					var gt = new BigNumber(giatri);
+					var dl = new BigNumber(dailuong);
+					var gt2 = new BigNumber(giatri2);
+					var dl2 = new BigNumber(dailuong2);
+					var ten = new BigNumber("10");
+					
+					var gtg = gt.multiply(ten.pow(-(dailuong-1)*3));
+					var gtg2 = gt2.multiply(ten.pow(-(dailuong2-1)*3));
+					
+					var gtt = gtg.add(gtg2);
+					
+					$("#val1").html(gtt + "");
+					$("#val2").html(gtt.multiply(ten.pow(3)) + "");
+					$("#val3").html(gtt.multiply(ten.pow(6)) + "");
+					$("#val4").html(gtt.multiply(ten.pow(9)) + "");
+					
+				});
+			</script>
+</body>
+</html>                               		
